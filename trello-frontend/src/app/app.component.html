@@ -1,0 +1,9 @@
+<div
+  class="example-container"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="drop($event)"
+  cdkDropListGroup
+>
+  <app-list *ngFor="let list of board.lists" [list]="list"></app-list>
+</div>

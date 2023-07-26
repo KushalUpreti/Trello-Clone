@@ -1,0 +1,14 @@
+<div class="list-wrapper" cdkDrag>
+  <h2 cdkDragHandle>{{ list.title }}</h2>
+
+  <div
+    cdkDropList
+    [cdkDropListData]="list.cards"
+    (cdkDropListDropped)="drop($event)"
+    class="example-list"
+  >
+    <div class="example-box" *ngFor="let item of list.cards" cdkDrag>
+      {{ item.title }}
+    </div>
+  </div>
+</div>
