@@ -1,0 +1,21 @@
+.section-notfound {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7em;
+  justify-content: center;
+  height: 45vh;
+  align-items: center;
+  background-color: black;
+  color: white;
+
+  span {
+    color: rgb(255, 255, 0);
+    margin-right: 20px;
+    font-size: 1.5em;
+  }
+
+  .btn {
+    padding-left: 1.7em;
+    padding-right: 1.7em;
+  }
+}
