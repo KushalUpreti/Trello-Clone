@@ -2,10 +2,11 @@ main {
   min-height: 100vh;
   background-image: url("/assets/wave-haikei-left.svg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 
   .add-board-section {
-    padding: 4em 0;
+    // margin-top: 50px;
+    padding: calc(50px + 4em) 0 4em 0;
     > div {
       width: 300px;
       margin: auto;
@@ -25,12 +26,12 @@ main {
       max-width: 800px;
       margin: auto;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       gap: 1em;
       flex-wrap: wrap;
 
       .board-card {
-        flex: 1 0 240px;
+        flex: 0 0 250px;
         height: 200px;
         padding: 1em;
         background-image: url("/assets/polygon2.svg");
@@ -54,6 +55,12 @@ main {
             font-family: "Varela Round", sans-serif;
             margin: 0;
             color: rgb(92, 92, 92);
+
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
           }
           p {
             margin: 6px 0 0 0;

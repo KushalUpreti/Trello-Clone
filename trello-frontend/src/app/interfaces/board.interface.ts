@@ -1,7 +1,10 @@
 import { List } from './list.interface';
 
 export interface Board {
-  title: string;
   id: string;
+  title: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
   lists: List[];
 }
