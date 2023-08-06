@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-notfound-page',
-  templateUrl: './notfound-page.component.html',
-  styleUrls: ['./notfound-page.component.scss'],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
-export class NotfoundPageComponent {
+export class HeaderComponent {
   constructor(private readonly router: Router) {}
 
   redirect() {

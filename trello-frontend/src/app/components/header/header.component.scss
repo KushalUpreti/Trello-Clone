@@ -1,0 +1,18 @@
+header {
+  width: 100vw;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: rgba(99, 99, 99, 0.123) 0px 2px 4px 0px;
+  background-color: white;
+
+  div {
+    width: 120px;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
