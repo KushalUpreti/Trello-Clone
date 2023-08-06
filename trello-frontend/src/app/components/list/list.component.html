@@ -1,14 +1,20 @@
-<div class="list-wrapper" cdkDrag>
-  <h2 cdkDragHandle>{{ list.title }}</h2>
-
+<div cdkDrag>
   <div
     cdkDropList
     [cdkDropListData]="list.cards"
     (cdkDropListDropped)="drop($event)"
-    class="example-list"
+    class="trello-list"
   >
-    <div class="example-box" *ngFor="let item of list.cards" cdkDrag>
-      {{ item.title }}
+    <h2 cdkDragHandle>{{ list.title }}</h2>
+    <div class="card" *ngFor="let item of list.cards" cdkDrag>
+      <div class="title">
+        <h3>{{ item.title }}</h3>
+      </div>
+      <div *ngIf="item.dueDate" class="due-date">
+        <img src="/assets/clock.svg" alt="Clock" />
+        <p>Due {{ validDate(item.dueDate) }}</p>
+      </div>
     </div>
+    <button type="button" class="btn btn-outline-dark">Add Card</button>
   </div>
 </div>

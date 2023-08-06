@@ -1,62 +1,27 @@
 <main>
   <section class="add-board-section">
     <div>
-      <button type="button" class="btn btn-primary">Add Board</button>
+      <button
+        type="button"
+        mat-button
+        class="btn btn-primary"
+        (click)="openDialog()"
+      >
+        Add Board
+      </button>
     </div>
   </section>
   <section class="boards-section">
     <div class="boards-wrapper">
-      <div class="board-card">
+      <div
+        class="board-card"
+        *ngFor="let board of boards"
+        (click)="onBoardClick(board)"
+      >
         <div class="text-wrapper">
-          <h4>Board Title</h4>
+          <h4>{{ board.title }}</h4>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nisi
-            earum odit deserunt, vel soluta dicta veritatis qui voluptatum
-            quisquam.
-          </p>
-        </div>
-      </div>
-
-      <div class="board-card">
-        <div class="text-wrapper">
-          <h4>Board Title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nisi
-            earum odit deserunt, vel soluta dicta veritatis qui voluptatum
-            quisquam.
-          </p>
-        </div>
-      </div>
-
-      <div class="board-card">
-        <div class="text-wrapper">
-          <h4>Board Title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nisi
-            earum odit deserunt, vel soluta dicta veritatis qui voluptatum
-            quisquam.
-          </p>
-        </div>
-      </div>
-
-      <div class="board-card">
-        <div class="text-wrapper">
-          <h4>Board Title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nisi
-            earum odit deserunt, vel soluta dicta veritatis qui voluptatum
-            quisquam.
-          </p>
-        </div>
-      </div>
-
-      <div class="board-card">
-        <div class="text-wrapper">
-          <h4>Board Title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nisi
-            earum odit deserunt, vel soluta dicta veritatis qui voluptatum
-            quisquam.
+            {{ board.description }}
           </p>
         </div>
       </div>

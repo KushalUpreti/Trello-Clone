@@ -31,4 +31,9 @@ export class ListComponent {
       );
     }
   }
+
+  validDate(date: Date): string {
+    let prettyDate = new Date(date);
+    return prettyDate.toDateString();
+  }
 }

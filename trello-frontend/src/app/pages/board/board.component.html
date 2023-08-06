@@ -1,0 +1,56 @@
+<main>
+  <aside>
+    <div class="user-wrapper">
+      <h6>Made by</h6>
+
+      <div class="user-info">
+        <div class="avatar">
+          <p>K</p>
+        </div>
+        <div class="info">
+          <p>Kushal Upreti</p>
+          <p>kushal@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="description">
+        <h3>Description</h3>
+        <p>
+          {{ board.description }}
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <div class="list-wrapper">
+    <div class="board-detail">
+      <div class="icon-wrapper">
+        <img src="/assets/kanban-icon.svg" alt="" />
+      </div>
+      <div class="text-wrapper">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="board.title"
+          />
+        </div>
+        <p>Kushal Upreti</p>
+      </div>
+    </div>
+
+    <div
+      class="list-container"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListGroup
+    >
+      <app-list *ngFor="let list of board.lists" [list]="list"></app-list>
+      <!-- <div class="add-list">
+        <button type="button" class="btn btn-outline-dark">Add List</button>
+      </div> -->
+    </div>
+  </div>
+</main>
