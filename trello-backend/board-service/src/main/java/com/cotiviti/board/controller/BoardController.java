@@ -1,6 +1,5 @@
 package com.cotiviti.board.controller;
 
-import com.cotiviti.board.dto.BoardEvent;
 import com.cotiviti.board.model.Board;
 import com.cotiviti.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -24,18 +23,18 @@ public class BoardController {
 
     @GetMapping("/board/{board}")
     public ResponseEntity<Board> getBoard(@PathVariable String board) {
-        return new ResponseEntity<>(boardService.getBoardById( UUID.fromString(board)), HttpStatus.OK);
+        return new ResponseEntity<>(boardService.getBoardById(UUID.fromString(board)), HttpStatus.OK);
     }
 
     @PostMapping("/create-board/{user}")
-    public ResponseEntity<Board> createBoard(@PathVariable long user, @RequestBody Board board){
-        Board newBoard = boardService.createBoard(user,board);
+    public ResponseEntity<Board> createBoard(@PathVariable long user, @RequestBody Board board) {
+        Board newBoard = boardService.createBoard(user, board);
         return new ResponseEntity<>(newBoard, HttpStatus.OK);
     }
 
-    @PatchMapping("/update-title/{board}")
-    public ResponseEntity<String> updateBoardTitle(@PathVariable String board, @RequestBody Board newBoard){
-        Board updatedBoard = boardService.updateBoardTitle(UUID.fromString(board),newBoard.getTitle());
+    @PostMapping("/update-title/{board}")
+    public ResponseEntity<String> updateBoardTitle(@PathVariable String board, @RequestBody String title) {
+        Board updatedBoard = boardService.updateBoardTitle(UUID.fromString(board), title);
         return new ResponseEntity<>(updatedBoard.getTitle(), HttpStatus.OK);
     }
 

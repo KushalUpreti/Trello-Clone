@@ -10,6 +10,6 @@ export class HeaderComponent {
   constructor(private readonly router: Router) {}
 
   redirect() {
-    this.router.navigate(['boards']);
+    this.router.navigate(['']);
   }
 }
