@@ -15,7 +15,7 @@ public class List {
     @Column(length = 50, nullable = false)
     private String title;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private int listIndex;
 
     @Column(nullable = false)

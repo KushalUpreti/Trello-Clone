@@ -2,14 +2,16 @@ package com.cotiviti.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class BoardEvent {
+@NoArgsConstructor
+public class DragEvent {
     private String boardId;
     private String eventType;
-    private long prevListId;
-    private long targetListId;
+    private long prevList;
+    private long targetList;
     private int prevIndex;
-    private int currentIndex;
+    private int currIndex;
 }

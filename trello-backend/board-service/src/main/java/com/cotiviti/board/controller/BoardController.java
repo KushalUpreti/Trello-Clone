@@ -1,5 +1,6 @@
 package com.cotiviti.board.controller;
 
+import com.cotiviti.board.dto.DragEvent;
 import com.cotiviti.board.model.Board;
 import com.cotiviti.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +39,9 @@ public class BoardController {
         return new ResponseEntity<>(updatedBoard.getTitle(), HttpStatus.OK);
     }
 
-//    @PatchMapping("/update-list-index}")
-//    public ResponseEntity<String> updateListIndex(@RequestBody BoardEvent event) {
-//        boardService.updateListIndex(event);
-//        return new ResponseEntity<>("List updated",HttpStatus.OK);
-//    }
+    @PostMapping("/update-list-index")
+    public ResponseEntity<String> updateListIndex(@RequestBody DragEvent event) {
+        boardService.updateListIndex(event);
+        return new ResponseEntity<>("List updated",HttpStatus.OK);
+    }
 }

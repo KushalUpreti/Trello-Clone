@@ -48,7 +48,11 @@
       (cdkDropListDropped)="drop($event)"
       cdkDropListGroup
     >
-      <app-list *ngFor="let list of board.lists" [list]="list"></app-list>
+      <app-list
+        *ngFor="let list of board.lists"
+        [sendCardEvent]="sendCardEvent"
+        [list]="list"
+      ></app-list>
       <!-- <div class="add-list">
         <button type="button" class="btn btn-outline-dark">Add List</button>
       </div> -->

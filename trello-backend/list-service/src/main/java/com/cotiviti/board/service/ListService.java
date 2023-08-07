@@ -1,6 +1,6 @@
 package com.cotiviti.board.service;
 
-import com.cotiviti.board.dto.BoardEvent;
+import com.cotiviti.board.dto.DragEvent;
 import com.cotiviti.board.model.Board;
 import com.cotiviti.board.model.Card;
 import com.cotiviti.board.model.List;
@@ -29,18 +29,18 @@ public class ListService {
         return listRepository.save(list);
     }
 
-    public void moveCard(BoardEvent event) {
-        if (event.getPrevListId() == event.getTargetListId()) {
+    public void moveCard(DragEvent event) {
+        if (event.getPrevList() == event.getTargetList()) {
            reorderWithinList(event);
         }else{
             reorderBetweenList(event);
         }
     }
 
-    private void reorderWithinList(BoardEvent event){
-        List prevList = listRepository.findById(event.getPrevListId()).orElseThrow();
+    private void reorderWithinList(DragEvent event){
+        List prevList = listRepository.findById(event.getPrevList()).orElseThrow();
         java.util.List<Card> cards = prevList.getCards();
-        int toIndex = event.getCurrentIndex();
+        int toIndex = event.getCurrIndex();
         int fromIndex = event.getPrevIndex();
         if (toIndex >= fromIndex) {
             Collections.rotate(cards.subList(fromIndex, toIndex + 1), -1);
@@ -51,11 +51,11 @@ public class ListService {
         listRepository.save(prevList);
     }
 
-    private void reorderBetweenList(BoardEvent event){
-        List prevList = listRepository.findById(event.getPrevListId()).orElseThrow();
-        List currentList = listRepository.findById(event.getTargetListId()).orElseThrow();
+    private void reorderBetweenList(DragEvent event){
+        List prevList = listRepository.findById(event.getPrevList()).orElseThrow();
+        List currentList = listRepository.findById(event.getTargetList()).orElseThrow();
         Card removedCard = prevList.getCards().remove(event.getPrevIndex());
-        currentList.getCards().add(event.getCurrentIndex(),removedCard);
+        currentList.getCards().add(event.getCurrIndex(),removedCard);
         prevList.setCards(reorderedList(prevList.getCards()));
         currentList.setCards(reorderedList(currentList.getCards()));
         listRepository.save(prevList);

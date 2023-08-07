@@ -1,6 +1,7 @@
 package com.cotiviti.board.controller;
 
 import com.cotiviti.board.dto.BoardEvent;
+import com.cotiviti.board.dto.DragEvent;
 import com.cotiviti.board.model.List;
 import com.cotiviti.board.service.ListService;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,9 @@ public class ListController {
         return new ResponseEntity<>(newList, HttpStatus.OK);
     }
 
-
+    @PostMapping("/update-card-order")
+    public ResponseEntity<String> updateListIndex(@RequestBody DragEvent event) {
+        listService.moveCard(event);
+        return new ResponseEntity<>("List updated",HttpStatus.OK);
+    }
 }

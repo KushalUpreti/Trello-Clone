@@ -14,50 +14,6 @@ body {
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
     0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.list.cdk-drop-list-dragging .list:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.trello-list {
-  padding: 16px 12px 16px 12px;
-  height: fit-content;
-  max-height: calc(100vh - 170px);
-  overflow-y: auto;
-  width: 260px;
-  background-color: #f3f7ff;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-shrink: 0;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-
-  h2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1; /* number of lines to show */
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
-    font-family: "Varela Round", sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  button {
-    border: 1px dotted black;
-    font-size: 12px;
-  }
-
   .card {
     height: fit-content;
     flex-shrink: 0;
@@ -91,4 +47,16 @@ body {
       }
     }
   }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.list.cdk-drop-list-dragging .list:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

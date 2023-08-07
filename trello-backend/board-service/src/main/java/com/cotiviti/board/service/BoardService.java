@@ -1,6 +1,6 @@
 package com.cotiviti.board.service;
 
-import com.cotiviti.board.dto.BoardEvent;
+import com.cotiviti.board.dto.DragEvent;
 import com.cotiviti.board.model.Board;
 import com.cotiviti.board.model.User;
 import com.cotiviti.board.repository.BoardRepository;
@@ -39,10 +39,10 @@ public class BoardService {
        return board;
     }
 
-    public void updateListIndex(BoardEvent event) {
+    public void updateListIndex(DragEvent event) {
         Board board = boardRepository.findById(UUID.fromString(event.getBoardId())).orElseThrow();
         java.util.List<com.cotiviti.board.model.List> list = board.getLists();
-        int toIndex = event.getCurrentIndex();
+        int toIndex = event.getCurrIndex();
         int fromIndex = event.getPrevIndex();
         if (toIndex >= fromIndex) {
             Collections.rotate(list.subList(fromIndex, toIndex + 1), -1);
@@ -53,5 +53,6 @@ public class BoardService {
             list1.setListIndex(list.indexOf(list1));
         }
         board.setLists(list);
+        boardRepository.save(board);
     }
 }
