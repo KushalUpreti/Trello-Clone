@@ -24,6 +24,12 @@ public class BoardController {
         this.template.convertAndSend("/topic/board/" + boardId + "/update-board-title", message);
     }
 
+    @MessageMapping("/board/join/{boardId}")
+    public void join(@DestinationVariable String boardId, Message message) {
+        this.template.convertAndSend("/topic/board/" + boardId + "/join", message);
+    }
+
+
     @MessageMapping("/board/update-list-order/{boardId}")
     public void updateListOrder(@DestinationVariable String boardId, DragEvent dragEvent) {
         boardService.updateListIndex(dragEvent);

@@ -10,6 +10,8 @@ import { Board } from 'src/app/interfaces/board.interface';
 import { Card } from 'src/app/interfaces/card.interface';
 import { DragEvent } from 'src/app/interfaces/drag-event.interface';
 import { List } from 'src/app/interfaces/list.interface';
+import { AppToastService } from 'src/app/services/app-toast.service';
+import { AuthService } from 'src/app/services/auth.service';
 declare let SockJS: any;
 declare let Stomp: any;
 @Component({
@@ -20,41 +22,53 @@ declare let Stomp: any;
 export class BoardComponent {
   constructor(
     private readonly http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public readonly auth: AuthService,
+    private readonly toastService: AppToastService
   ) {}
 
   board: Board;
   stompClient: any = null;
-  userId: number = 0;
 
   ngOnInit(): void {
-    this.userId = Math.floor(Math.random() * 300);
     const boardId = this.route.snapshot.paramMap.get('boardId');
     this.getBoardById(boardId);
     this.connect(boardId);
   }
 
   connect(boardId) {
-    let socket = new SockJS('http://localhost:8085/chat');
+    let socket = new SockJS('http://localhost:8082/chat');
     this.stompClient = Stomp.over(socket);
-    this.stompClient.debug = null;
+    // this.stompClient.debug = null;
     this.stompClient.connect({}, () => {
+      this.sendJoinEvent();
       this.stompClient.subscribe(
         `/topic/board/${boardId}/update-board-title`,
         (data) => {
           const { userId, email, message } = JSON.parse(data.body);
-          if (userId === this.userId || message.trim() == '') {
+          if (userId == this.auth.userId || message.trim() == '') {
             return;
           }
           this.board.title = message;
         }
       );
 
+      this.stompClient.subscribe(`/topic/board/${boardId}/join`, (data) => {
+        const { userId, username, email } = JSON.parse(data.body);
+        if (userId == this.auth.userId) {
+          return;
+        }
+        this.toastService.show(
+          'New User Added',
+          `${username} joined the board`
+        );
+      });
+
       this.stompClient.subscribe(
         `/topic/board/${boardId}/update-list-order`,
         (data) => {
           const { userId, prevIndex, currIndex } = JSON.parse(data.body);
-          if (userId === this.userId) {
+          if (userId == this.auth.userId) {
             return;
           }
           moveItemInArray(this.board.lists, prevIndex, currIndex);
@@ -66,7 +80,7 @@ export class BoardComponent {
         (data) => {
           const { userId, prevIndex, currIndex, prevList, targetList } =
             JSON.parse(data.body);
-          if (userId === this.userId) {
+          if (userId === this.auth.userId) {
             return;
           }
 
@@ -90,6 +104,10 @@ export class BoardComponent {
     return this.stompClient;
   }
 
+  firstChar(email: string) {
+    return email.charAt(0);
+  }
+
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();
@@ -102,7 +120,7 @@ export class BoardComponent {
 
   getBoardById(id: string): void {
     this.http
-      .get<Board>(`http://localhost:8082/board/${id}`)
+      .get<Board>(`http://localhost:8080/board/board/${id}`)
       .subscribe((board) => {
         this.board = board;
       });
@@ -113,11 +131,22 @@ export class BoardComponent {
       `/app/board/update-board-title/${this.board.id}`,
       {},
       JSON.stringify({
-        userId: this.userId,
-        email: 'kushal@gmail.com',
+        ...this.auth.userValue,
         message: this.board.title,
       })
     );
+  }
+
+  sendJoinEvent() {
+    setTimeout(() => {
+      this.stompClient.send(
+        `/app/board/join/${this.board.id}`,
+        {},
+        JSON.stringify({
+          ...this.auth.userValue,
+        })
+      );
+    }, 300);
   }
 
   drop(event: CdkDragDrop<List[]>) {
@@ -136,7 +165,7 @@ export class BoardComponent {
       {},
       JSON.stringify({
         ...dragEvent,
-        userId: this.userId,
+        ...this.auth.userValue,
         email: 'kushal@gmail.com',
       })
     );
@@ -149,8 +178,7 @@ export class BoardComponent {
       JSON.stringify({
         ...dragEvent,
         boardId: this.board.id,
-        userId: this.userId,
-        email: 'kushal@gmail.com',
+        ...this.auth.userValue,
       })
     );
   };

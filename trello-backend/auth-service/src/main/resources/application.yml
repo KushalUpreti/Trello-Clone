@@ -1,9 +1,9 @@
 spring:
   application:
-    name: auth-gateway
+    name: auth-service
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/trello-auth
+    url: jdbc:mysql://localhost:3306/trello-clone
     username: root
     password: ${MYSQL_PW}
   jpa:
@@ -11,19 +11,9 @@ spring:
     generate-ddl: true
     show-sql: true
 server:
-  port: 8080
+  port: 8081
 eureka:
-  instance:
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
   client:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
-  healthcheck:
-    enabled: true
-zuul:
-  routes:
-    board:
-      path: /board/**
-      serviceId: board-service

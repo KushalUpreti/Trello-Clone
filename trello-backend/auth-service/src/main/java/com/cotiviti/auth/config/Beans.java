@@ -1,5 +1,6 @@
 package com.cotiviti.auth.config;
 
+import com.cotiviti.auth.repository.UserRepository;
 import com.cotiviti.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,18 +23,23 @@ import java.util.HashSet;
 @Configuration
 @RequiredArgsConstructor
 public class Beans {
-    private final AuthService authService;
+    private final UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                com.cotiviti.auth.model.User user = authService.getUserByEmail(email);
+                com.cotiviti.auth.model.User user = getUserByEmail(email);
                 return new User(user.getEmail(), user.getPassword(), new HashSet<GrantedAuthority>());
             }
         };
     }
+
+    public com.cotiviti.auth.model.User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
