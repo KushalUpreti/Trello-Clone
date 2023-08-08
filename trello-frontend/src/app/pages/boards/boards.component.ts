@@ -35,7 +35,7 @@ export class BoardsComponent {
       alert('Enter valid title or description');
       return;
     }
-    this.postData(`http://localhost:8082/create-board/${1}`, {
+    this.postData(`http://localhost:8080/board/create-board/${1}`, {
       title,
       description,
     }).then((board) => {
@@ -68,7 +68,7 @@ export class BoardsComponent {
 
   getBoardById(id: number): void {
     this.http
-      .get<Board[]>(`http://localhost:8082/boards/${id}`)
+      .get<Board[]>(`http://localhost:8080/board/boards/${id}`)
       .subscribe((boards) => {
         this.boards = boards;
       });

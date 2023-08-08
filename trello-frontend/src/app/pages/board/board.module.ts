@@ -6,6 +6,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 const routes: Routes = [{ path: '', component: BoardComponent }];
 
 @NgModule({
@@ -15,6 +17,7 @@ const routes: Routes = [{ path: '', component: BoardComponent }];
     DragDropModule,
     RouterModule.forChild(routes),
     FormsModule,
+    NgbModule,
   ],
 })
 export class BoardModule {}
